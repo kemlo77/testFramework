@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TestNGTest" basedir="." default="test">
+
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+
+	<property name="lib.dir" value="libs" />
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="test.dir" value="${build.dir}/test" description="test output directory" />
+	
+	
+	<taskdef name="testng" classname="org.testng.TestNGAntTask">
+		<classpath>
+			<pathelement location="${lib.dir}/TestNG/testng-6.13.1.jar" />
+		</classpath>
+	</taskdef>
+
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+		<pathelement location = "${classes.dir}" />
+	</path>
+
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+
+	<target name="compile" depends="clean" description="compile the source">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"
+			classpathref="classpath" />
+	</target>
+	
+	
+	<target name="test" depends="compile" description="run the tests">
+		<mkdir dir="${test.dir}" />
+		<testng outputdir="${test.dir}" classpathref="classpath">
+			<xmlfileset dir="." includes="TestNG.xml" />
+		</testng>
+	</target>
+
+</project>
