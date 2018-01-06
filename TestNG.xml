@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="En test-svit">
+	<test name= "smoke-tester">
+		<classes>
+			<class name="testclasses.NewTest" />
+		</classes>
+
+	</test>
+</suite>
